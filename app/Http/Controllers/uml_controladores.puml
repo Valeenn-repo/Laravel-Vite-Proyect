@@ -1,0 +1,78 @@
+@startuml
+' Diagrama UML de clases para los controladores de la API (detallado)
+
+abstract class Controller
+
+class DealershipsController {
+  +index(): JsonResponse
+  -DB
+}
+
+class CarImagesController {
+  +store(request: Request): JsonResponse
+  +update(request: Request, id: int): JsonResponse
+  +destroy(id: int): JsonResponse
+  -DB
+  -Validator
+  -Log
+}
+
+class CarDataController {
+  +grouped(): JsonResponse
+  -DB
+}
+
+class CarController {
+  +index(request: Request): JsonResponse
+  +show(id: int): JsonResponse
+  +store(request: Request): JsonResponse
+  +update(request: Request, id: int): JsonResponse
+  +destroy(id: int): JsonResponse
+  -DB
+  -Schema
+  -Log
+  -Validator
+}
+
+class AuthController {
+  +register(request: Request): JsonResponse
+  +login(request: Request): JsonResponse
+  +logout(request: Request): JsonResponse
+  +me(): JsonResponse
+  -DB
+  -Validator
+  -Hash
+  -Log
+  -JWTAuth
+  -User
+}
+
+class ViewController {
+  +showLogin(): View
+  +showRegister(): View
+  +showDashboard(request: Request): JsonResponse
+}
+
+class SwaggerController {
+  ' Controlador para la documentación Swagger
+}
+
+class ProfileController {
+  +edit(request: Request): Response
+  +update(request: ProfileUpdateRequest): RedirectResponse
+  +destroy(request: Request): RedirectResponse
+  -Auth
+  -Redirect
+  -Inertia
+}
+
+Controller <|-- DealershipsController
+Controller <|-- CarImagesController
+Controller <|-- CarDataController
+Controller <|-- CarController
+Controller <|-- AuthController
+Controller <|-- ViewController
+Controller <|-- SwaggerController
+Controller <|-- ProfileController
+
+@enduml
